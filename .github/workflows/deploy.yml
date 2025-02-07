@@ -1,0 +1,23 @@
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH Key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Connecting to server..."
+            cd /var/www/dotnetapp
+            rm -rf *
+            cp -r ~/actions-runner/_work/MyDotNetApp/MyDotNetApp/publish/* /var/www/dotnetapp/
+            dotnet /var/www/dotnetapp/MyDotNetApp.dll &
+            echo "Deployment complete"
