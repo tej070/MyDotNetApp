@@ -437,19 +437,19 @@
     ]
   },
   "packageFolders": {
-    "/home/suraj/.nuget/packages/": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/suraj/MyDotNetApp/MyDotNetApp.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\MyDotNetApp\\MyDotNetApp.csproj",
       "projectName": "MyDotNetApp",
-      "projectPath": "/home/suraj/MyDotNetApp/MyDotNetApp.csproj",
-      "packagesPath": "/home/suraj/.nuget/packages/",
-      "outputPath": "/home/suraj/MyDotNetApp/obj/",
+      "projectPath": "C:\\Users\\Admin\\MyDotNetApp\\MyDotNetApp.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\MyDotNetApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/suraj/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -497,7 +497,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.428/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.428\\RuntimeIdentifierGraph.json"
       }
     }
   }
