@@ -7,6 +7,12 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      rollback:
+        description: 'Rollback to the last successful deployment'
+        required: false
+        default: 'false'
 
 jobs:
   build:
@@ -35,8 +41,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Deploy to Production Server
+        id: deploy
         run: |
           echo "Deploying .NET application..."
-          # Add deployment commands here (e.g., SSH into the server, copy files, restart services)
+          # Add actual deployment commands here
+          # Example: SSH into the server, copy files, restart services
+          if [[ "$RANDOM" -gt 20000 ]]; then exit 1; fi  # Simulating a failure
 
+    # Rollback step if deployment fails
+    if: failure() || github.event.inputs.rollback == 'true'
+    steps:
+      - name: Rollback to Last Stable Version
+        run: |
+          echo "Rolling back to the last successful deployment..."
+          git fetch --all
+          git reset --hard HEAD~1  # Move back one commit
+          git push --force
+          # Add redeployment commands
+          echo "Redeploying previous stable version..."
