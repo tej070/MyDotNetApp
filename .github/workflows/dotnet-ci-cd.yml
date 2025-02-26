@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - main
+      - develop
+      - feature/*
   pull_request:
     branches:
       - main
+      - develop
   workflow_dispatch:
     inputs:
       rollback:
@@ -39,6 +42,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # Ensure deployment runs only on main branch
 
     steps:
       - name: Checkout Repository
@@ -52,9 +56,15 @@ jobs:
           # Example: SSH into the server, copy files, restart services
           if [[ "$RANDOM" -gt 20000 ]]; then exit 1; fi  # Simulating a failure
 
-    # Rollback step if deployment fails
-    if: failure() || github.event.inputs.rollback == 'true'
+  rollback:
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: failure() || github.event.inputs.rollback == 'true'  # Execute rollback if deployment fails or rollback is triggered
+
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Rollback to Last Stable Version
         run: |
           echo "Rolling back to the last successful deployment..."
