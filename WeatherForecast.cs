@@ -1,6 +1,6 @@
 namespace MyDotNetApp;
 
-public class WeatherForecast
+public class SurajForecast
 {
     public DateTime Date { get; set; }
 
